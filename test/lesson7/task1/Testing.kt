@@ -2,10 +2,11 @@ package lesson7.task1
 
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import java.io.File
 
-
+@Tag("Coverage")
 class Testing {
     private val filesNames = mutableListOf<String>()
     private var count = 0

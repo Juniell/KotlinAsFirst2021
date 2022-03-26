@@ -1,0 +1,469 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ParseKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">lesson6.task1</a>
+</div>
+
+<h1>Coverage Summary for Class: ParseKt (lesson6.task1)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ParseKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (4/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,5%
+  </span>
+  <span class="absValue">
+    (22/133)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;@file:Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;ConvertCallChainIntoSequence&quot;)
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;package lesson6.task1
+<i class="no-highlight">4</i>&nbsp;
+<i class="no-highlight">5</i>&nbsp;import java.lang.IllegalArgumentException
+<i class="no-highlight">6</i>&nbsp;import java.lang.IllegalStateException
+<i class="no-highlight">7</i>&nbsp;
+<i class="no-highlight">8</i>&nbsp;// Урок 6: разбор строк, исключения
+<i class="no-highlight">9</i>&nbsp;// Максимальное количество баллов = 13
+<i class="no-highlight">10</i>&nbsp;// Рекомендуемое количество баллов = 11
+<i class="no-highlight">11</i>&nbsp;// Вместе с предыдущими уроками (пять лучших, 2-6) = 40/54
+<i class="no-highlight">12</i>&nbsp;
+<i class="no-highlight">13</i>&nbsp;/**
+<i class="no-highlight">14</i>&nbsp; * Пример
+<i class="no-highlight">15</i>&nbsp; *
+<i class="no-highlight">16</i>&nbsp; * Время представлено строкой вида &quot;11:34:45&quot;, содержащей часы, минуты и секунды, разделённые двоеточием.
+<i class="no-highlight">17</i>&nbsp; * Разобрать эту строку и рассчитать количество секунд, прошедшее с начала дня.
+<i class="no-highlight">18</i>&nbsp; */
+<i class="no-highlight">19</i>&nbsp;fun timeStrToSeconds(str: String): Int {
+<b class="nc"><i class="no-highlight">20</i>&nbsp;    val parts = str.split(&quot;:&quot;)</b>
+<b class="nc"><i class="no-highlight">21</i>&nbsp;    var result = 0</b>
+<b class="nc"><i class="no-highlight">22</i>&nbsp;    for (part in parts) {</b>
+<b class="nc"><i class="no-highlight">23</i>&nbsp;        val number = part.toInt()</b>
+<b class="nc"><i class="no-highlight">24</i>&nbsp;        result = result * 60 + number</b>
+<i class="no-highlight">25</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">26</i>&nbsp;    return result</b>
+<i class="no-highlight">27</i>&nbsp;}
+<i class="no-highlight">28</i>&nbsp;
+<i class="no-highlight">29</i>&nbsp;/**
+<i class="no-highlight">30</i>&nbsp; * Пример
+<i class="no-highlight">31</i>&nbsp; *
+<i class="no-highlight">32</i>&nbsp; * Дано число n от 0 до 99.
+<i class="no-highlight">33</i>&nbsp; * Вернуть его же в виде двухсимвольной строки, от &quot;00&quot; до &quot;99&quot;
+<i class="no-highlight">34</i>&nbsp; */
+<b class="nc"><i class="no-highlight">35</i>&nbsp;fun twoDigitStr(n: Int) = if (n in 0..9) &quot;0$n&quot; else &quot;$n&quot;</b>
+<i class="no-highlight">36</i>&nbsp;
+<i class="no-highlight">37</i>&nbsp;/**
+<i class="no-highlight">38</i>&nbsp; * Пример
+<i class="no-highlight">39</i>&nbsp; *
+<i class="no-highlight">40</i>&nbsp; * Дано seconds -- время в секундах, прошедшее с начала дня.
+<i class="no-highlight">41</i>&nbsp; * Вернуть текущее время в виде строки в формате &quot;ЧЧ:ММ:СС&quot;.
+<i class="no-highlight">42</i>&nbsp; */
+<i class="no-highlight">43</i>&nbsp;fun timeSecondsToStr(seconds: Int): String {
+<b class="nc"><i class="no-highlight">44</i>&nbsp;    val hour = seconds / 3600</b>
+<b class="nc"><i class="no-highlight">45</i>&nbsp;    val minute = (seconds % 3600) / 60</b>
+<b class="nc"><i class="no-highlight">46</i>&nbsp;    val second = seconds % 60</b>
+<b class="nc"><i class="no-highlight">47</i>&nbsp;    return String.format(&quot;%02d:%02d:%02d&quot;, hour, minute, second)</b>
+<i class="no-highlight">48</i>&nbsp;}
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;/**
+<i class="no-highlight">51</i>&nbsp; * Пример: консольный ввод
+<i class="no-highlight">52</i>&nbsp; */
+<i class="no-highlight">53</i>&nbsp;fun main() {
+<b class="nc"><i class="no-highlight">54</i>&nbsp;    println(&quot;Введите время в формате ЧЧ:ММ:СС&quot;)</b>
+<b class="nc"><i class="no-highlight">55</i>&nbsp;    val line = readLine()</b>
+<b class="nc"><i class="no-highlight">56</i>&nbsp;    if (line != null) {</b>
+<b class="nc"><i class="no-highlight">57</i>&nbsp;        val seconds = timeStrToSeconds(line)</b>
+<b class="nc"><i class="no-highlight">58</i>&nbsp;        if (seconds == -1) {</b>
+<b class="nc"><i class="no-highlight">59</i>&nbsp;            println(&quot;Введённая строка $line не соответствует формату ЧЧ:ММ:СС&quot;)</b>
+<i class="no-highlight">60</i>&nbsp;        } else {
+<b class="nc"><i class="no-highlight">61</i>&nbsp;            println(&quot;Прошло секунд с начала суток: $seconds&quot;)</b>
+<i class="no-highlight">62</i>&nbsp;        }
+<i class="no-highlight">63</i>&nbsp;    } else {
+<b class="nc"><i class="no-highlight">64</i>&nbsp;        println(&quot;Достигнут &lt;конец файла&gt; в процессе чтения строки. Программа прервана&quot;)</b>
+<i class="no-highlight">65</i>&nbsp;    }
+<i class="no-highlight">66</i>&nbsp;}
+<i class="no-highlight">67</i>&nbsp;
+<i class="no-highlight">68</i>&nbsp;
+<i class="no-highlight">69</i>&nbsp;/**
+<i class="no-highlight">70</i>&nbsp; * Средняя (4 балла)
+<i class="no-highlight">71</i>&nbsp; *
+<i class="no-highlight">72</i>&nbsp; * Дата представлена строкой вида &quot;15 июля 2016&quot;.
+<i class="no-highlight">73</i>&nbsp; * Перевести её в цифровой формат &quot;15.07.2016&quot;.
+<i class="no-highlight">74</i>&nbsp; * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
+<i class="no-highlight">75</i>&nbsp; * При неверном формате входной строки вернуть пустую строку.
+<i class="no-highlight">76</i>&nbsp; *
+<i class="no-highlight">77</i>&nbsp; * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
+<i class="no-highlight">78</i>&nbsp; * входными данными.
+<i class="no-highlight">79</i>&nbsp; */
+<b class="nc"><i class="no-highlight">80</i>&nbsp;fun dateStrToDigit(str: String): String = TODO()</b>
+<i class="no-highlight">81</i>&nbsp;
+<i class="no-highlight">82</i>&nbsp;/**
+<i class="no-highlight">83</i>&nbsp; * Средняя (4 балла)
+<i class="no-highlight">84</i>&nbsp; *
+<i class="no-highlight">85</i>&nbsp; * Дата представлена строкой вида &quot;15.07.2016&quot;.
+<i class="no-highlight">86</i>&nbsp; * Перевести её в строковый формат вида &quot;15 июля 2016&quot;.
+<i class="no-highlight">87</i>&nbsp; * При неверном формате входной строки вернуть пустую строку
+<i class="no-highlight">88</i>&nbsp; *
+<i class="no-highlight">89</i>&nbsp; * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
+<i class="no-highlight">90</i>&nbsp; * входными данными.
+<i class="no-highlight">91</i>&nbsp; */
+<b class="nc"><i class="no-highlight">92</i>&nbsp;fun dateDigitToStr(digital: String): String = TODO()</b>
+<i class="no-highlight">93</i>&nbsp;
+<i class="no-highlight">94</i>&nbsp;/**
+<i class="no-highlight">95</i>&nbsp; * Средняя (4 балла)
+<i class="no-highlight">96</i>&nbsp; *
+<i class="no-highlight">97</i>&nbsp; * Номер телефона задан строкой вида &quot;+7 (921) 123-45-67&quot;.
+<i class="no-highlight">98</i>&nbsp; * Префикс (+7) может отсутствовать, код города (в скобках) также может отсутствовать.
+<i class="no-highlight">99</i>&nbsp; * Может присутствовать неограниченное количество пробелов и чёрточек,
+<i class="no-highlight">100</i>&nbsp; * например, номер 12 --  34- 5 -- 67 -89 тоже следует считать легальным.
+<i class="no-highlight">101</i>&nbsp; * Перевести номер в формат без скобок, пробелов и чёрточек (но с +), например,
+<i class="no-highlight">102</i>&nbsp; * &quot;+79211234567&quot; или &quot;123456789&quot; для приведённых примеров.
+<i class="no-highlight">103</i>&nbsp; * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
+<i class="no-highlight">104</i>&nbsp; * При неверном формате вернуть пустую строку.
+<i class="no-highlight">105</i>&nbsp; *
+<i class="no-highlight">106</i>&nbsp; * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
+<i class="no-highlight">107</i>&nbsp; */
+<b class="nc"><i class="no-highlight">108</i>&nbsp;fun flattenPhoneNumber(phone: String): String = TODO()</b>
+<i class="no-highlight">109</i>&nbsp;
+<i class="no-highlight">110</i>&nbsp;/**
+<i class="no-highlight">111</i>&nbsp; * Средняя (5 баллов)
+<i class="no-highlight">112</i>&nbsp; *
+<i class="no-highlight">113</i>&nbsp; * Результаты спортсмена на соревнованиях в прыжках в длину представлены строкой вида
+<i class="no-highlight">114</i>&nbsp; * &quot;706 - % 717 % 703&quot;.
+<i class="no-highlight">115</i>&nbsp; * В строке могут присутствовать числа, черточки - и знаки процента %, разделённые пробелами;
+<i class="no-highlight">116</i>&nbsp; * число соответствует удачному прыжку, - пропущенной попытке, % заступу.
+<i class="no-highlight">117</i>&nbsp; * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
+<i class="no-highlight">118</i>&nbsp; * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
+<i class="no-highlight">119</i>&nbsp; */
+<b class="nc"><i class="no-highlight">120</i>&nbsp;fun bestLongJump(jumps: String): Int = TODO()</b>
+<i class="no-highlight">121</i>&nbsp;
+<i class="no-highlight">122</i>&nbsp;/**
+<i class="no-highlight">123</i>&nbsp; * Сложная (6 баллов)
+<i class="no-highlight">124</i>&nbsp; *
+<i class="no-highlight">125</i>&nbsp; * Результаты спортсмена на соревнованиях в прыжках в высоту представлены строкой вида
+<i class="no-highlight">126</i>&nbsp; * &quot;220 + 224 %+ 228 %- 230 + 232 %%- 234 %&quot;.
+<i class="no-highlight">127</i>&nbsp; * Здесь + соответствует удачной попытке, % неудачной, - пропущенной.
+<i class="no-highlight">128</i>&nbsp; * Высота и соответствующие ей попытки разделяются пробелом.
+<i class="no-highlight">129</i>&nbsp; * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
+<i class="no-highlight">130</i>&nbsp; * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
+<i class="no-highlight">131</i>&nbsp; * вернуть -1.
+<i class="no-highlight">132</i>&nbsp; */
+<b class="nc"><i class="no-highlight">133</i>&nbsp;fun bestHighJump(jumps: String): Int = TODO()</b>
+<i class="no-highlight">134</i>&nbsp;
+<i class="no-highlight">135</i>&nbsp;/**
+<i class="no-highlight">136</i>&nbsp; * Сложная (6 баллов)
+<i class="no-highlight">137</i>&nbsp; *
+<i class="no-highlight">138</i>&nbsp; * В строке представлено выражение вида &quot;2 + 31 - 40 + 13&quot;,
+<i class="no-highlight">139</i>&nbsp; * использующее целые положительные числа, плюсы и минусы, разделённые пробелами.
+<i class="no-highlight">140</i>&nbsp; * Наличие двух знаков подряд &quot;13 + + 10&quot; или двух чисел подряд &quot;1 2&quot; не допускается.
+<i class="no-highlight">141</i>&nbsp; * Вернуть значение выражения (6 для примера).
+<i class="no-highlight">142</i>&nbsp; * Про нарушении формата входной строки бросить исключение IllegalArgumentException
+<i class="no-highlight">143</i>&nbsp; */
+<b class="nc"><i class="no-highlight">144</i>&nbsp;fun plusMinus(expression: String): Int = TODO()</b>
+<i class="no-highlight">145</i>&nbsp;
+<i class="no-highlight">146</i>&nbsp;/**
+<i class="no-highlight">147</i>&nbsp; * Сложная (6 баллов)
+<i class="no-highlight">148</i>&nbsp; *
+<i class="no-highlight">149</i>&nbsp; * Строка состоит из набора слов, отделённых друг от друга одним пробелом.
+<i class="no-highlight">150</i>&nbsp; * Определить, имеются ли в строке повторяющиеся слова, идущие друг за другом.
+<i class="no-highlight">151</i>&nbsp; * Слова, отличающиеся только регистром, считать совпадающими.
+<i class="no-highlight">152</i>&nbsp; * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
+<i class="no-highlight">153</i>&nbsp; * Пример: &quot;Он пошёл в в школу&quot; =&gt; результат 9 (индекс первого &#39;в&#39;)
+<i class="no-highlight">154</i>&nbsp; */
+<i class="no-highlight">155</i>&nbsp;fun firstDuplicateIndex(str: String): Int {
+<b class="fc"><i class="no-highlight">156</i>&nbsp;    var countIndexes = 0</b>
+<b class="fc"><i class="no-highlight">157</i>&nbsp;    val listWords = str.split(&quot; &quot;)</b>
+<b class="fc"><i class="no-highlight">158</i>&nbsp;    for (i in 0..listWords.size - 2) {</b>
+<b class="fc"><i class="no-highlight">159</i>&nbsp;        countIndexes += listWords[i].length</b>
+<b class="fc"><i class="no-highlight">160</i>&nbsp;        if (listWords[i].equals(listWords[i + 1], ignoreCase = true)) {</b>
+<b class="fc"><i class="no-highlight">161</i>&nbsp;            return countIndexes + i - listWords[i].length</b>
+<i class="no-highlight">162</i>&nbsp;        }
+<i class="no-highlight">163</i>&nbsp;    }
+<b class="fc"><i class="no-highlight">164</i>&nbsp;    return -1</b>
+<i class="no-highlight">165</i>&nbsp;}
+<i class="no-highlight">166</i>&nbsp;
+<i class="no-highlight">167</i>&nbsp;/**
+<i class="no-highlight">168</i>&nbsp; * Сложная (6 баллов)
+<i class="no-highlight">169</i>&nbsp; *
+<i class="no-highlight">170</i>&nbsp; * Строка содержит названия товаров и цены на них в формате вида
+<i class="no-highlight">171</i>&nbsp; * &quot;Хлеб 39.9; Молоко 62; Курица 184.0; Конфеты 89.9&quot;.
+<i class="no-highlight">172</i>&nbsp; * То есть, название товара отделено от цены пробелом,
+<i class="no-highlight">173</i>&nbsp; * а цена отделена от названия следующего товара точкой с запятой и пробелом.
+<i class="no-highlight">174</i>&nbsp; * Вернуть название самого дорогого товара в списке (в примере это Курица),
+<i class="no-highlight">175</i>&nbsp; * или пустую строку при нарушении формата строки.
+<i class="no-highlight">176</i>&nbsp; * Все цены должны быть больше нуля либо равны нулю.
+<i class="no-highlight">177</i>&nbsp; */
+<i class="no-highlight">178</i>&nbsp;
+<i class="no-highlight">179</i>&nbsp;fun mostExpensive(description: String): String {
+<b class="fc"><i class="no-highlight">180</i>&nbsp;    if (description.isEmpty()) return &quot;&quot;</b>
+<b class="fc"><i class="no-highlight">181</i>&nbsp;    var maxPrice = 0.0</b>
+<b class="fc"><i class="no-highlight">182</i>&nbsp;    val products = mutableMapOf&lt;Double, String&gt;()</b>
+<b class="fc"><i class="no-highlight">183</i>&nbsp;    val items = description.split(&quot;;&quot;).toMutableList()</b>
+<b class="fc"><i class="no-highlight">184</i>&nbsp;    for (i in items.indices) {</b>
+<b class="fc"><i class="no-highlight">185</i>&nbsp;        if (items[i][0].toString() == &quot; &quot;) items[i] = items[i].substring(1)</b>
+<b class="fc"><i class="no-highlight">186</i>&nbsp;        val listPriceItem = items[i].split(&quot; &quot;)</b>
+<b class="fc"><i class="no-highlight">187</i>&nbsp;        if (listPriceItem.size != 2) return &quot;&quot;</b>
+<b class="fc"><i class="no-highlight">188</i>&nbsp;        if (listPriceItem[1].toDouble() &lt; 0) return &quot;&quot;</b>
+<b class="fc"><i class="no-highlight">189</i>&nbsp;        products[listPriceItem[1].toDouble()] = listPriceItem[0]</b>
+<b class="fc"><i class="no-highlight">190</i>&nbsp;        if (listPriceItem[1].toDouble() &gt; maxPrice) maxPrice = listPriceItem[1].toDouble()</b>
+<i class="no-highlight">191</i>&nbsp;    }
+<b class="fc"><i class="no-highlight">192</i>&nbsp;    return products[maxPrice].toString()</b>
+<i class="no-highlight">193</i>&nbsp;}
+<i class="no-highlight">194</i>&nbsp;
+<i class="no-highlight">195</i>&nbsp;/**
+<i class="no-highlight">196</i>&nbsp; * Сложная (6 баллов)
+<i class="no-highlight">197</i>&nbsp; *
+<i class="no-highlight">198</i>&nbsp; * Перевести число roman, заданное в римской системе счисления,
+<i class="no-highlight">199</i>&nbsp; * в десятичную систему и вернуть как результат.
+<i class="no-highlight">200</i>&nbsp; * Римские цифры: 1 = I, 4 = IV, 5 = V, 9 = IX, 10 = X, 40 = XL, 50 = L,
+<i class="no-highlight">201</i>&nbsp; * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
+<i class="no-highlight">202</i>&nbsp; * Например: XXIII = 23, XLIV = 44, C = 100
+<i class="no-highlight">203</i>&nbsp; *
+<i class="no-highlight">204</i>&nbsp; * Вернуть -1, если roman не является корректным римским числом
+<i class="no-highlight">205</i>&nbsp; */
+<b class="fc"><i class="no-highlight">206</i>&nbsp;var numbersRoman = mapOf(</b>
+<b class="fc"><i class="no-highlight">207</i>&nbsp;    &quot;M&quot; to 1000, &quot;CM&quot; to 900, &quot;D&quot; to 500, &quot;CD&quot; to 400, &quot;C&quot; to 100, &quot;XC&quot; to 90,</b>
+<b class="fc"><i class="no-highlight">208</i>&nbsp;    &quot;L&quot; to 50, &quot;XL&quot; to 40, &quot;X&quot; to 10, &quot;IX&quot; to 9, &quot;V&quot; to 5, &quot;IV&quot; to 4, &quot;I&quot; to 1</b>
+<i class="no-highlight">209</i>&nbsp;)
+<i class="no-highlight">210</i>&nbsp;
+<i class="no-highlight">211</i>&nbsp;fun fromRoman(roman: String): Int {
+<b class="nc"><i class="no-highlight">212</i>&nbsp;    var result = 0</b>
+<b class="nc"><i class="no-highlight">213</i>&nbsp;    var maxNumber = 5000</b>
+<b class="nc"><i class="no-highlight">214</i>&nbsp;    if (roman.isEmpty()) return -1</b>
+<b class="nc"><i class="no-highlight">215</i>&nbsp;    var i = 0</b>
+<b class="nc"><i class="no-highlight">216</i>&nbsp;    while (i &lt; roman.length) {</b>
+<b class="nc"><i class="no-highlight">217</i>&nbsp;        if (roman[i] !in &quot;MCDXLIV&quot;) return -1</b>
+<i class="no-highlight">218</i>&nbsp;
+<b class="nc"><i class="no-highlight">219</i>&nbsp;        var substring = roman[i].toString()</b>
+<b class="nc"><i class="no-highlight">220</i>&nbsp;        if (roman.length - i &gt; 1) substring = substring.plus(roman[i + 1])</b>
+<b class="nc"><i class="no-highlight">221</i>&nbsp;        maxNumber = if (numbersRoman.containsKey(substring)) {</b>
+<b class="nc"><i class="no-highlight">222</i>&nbsp;            if (numbersRoman.getValue(substring) &lt;= maxNumber) {</b>
+<b class="nc"><i class="no-highlight">223</i>&nbsp;                numbersRoman.getValue(substring)</b>
+<b class="nc"><i class="no-highlight">224</i>&nbsp;            } else return -1</b>
+<b class="nc"><i class="no-highlight">225</i>&nbsp;        } else if (numbersRoman.getValue(roman[i].toString()) &lt;= maxNumber) {</b>
+<b class="nc"><i class="no-highlight">226</i>&nbsp;            numbersRoman.getValue(roman[i].toString())</b>
+<b class="nc"><i class="no-highlight">227</i>&nbsp;        } else return -1</b>
+<i class="no-highlight">228</i>&nbsp;
+<b class="nc"><i class="no-highlight">229</i>&nbsp;        if (i == roman.length - 1) {</b>
+<b class="nc"><i class="no-highlight">230</i>&nbsp;            result += numbersRoman.getValue(roman[i].toString())</b>
+<b class="nc"><i class="no-highlight">231</i>&nbsp;            i++</b>
+<i class="no-highlight">232</i>&nbsp;        } else {
+<b class="nc"><i class="no-highlight">233</i>&nbsp;            val substring = roman[i].plus(roman[i + 1].toString())</b>
+<b class="nc"><i class="no-highlight">234</i>&nbsp;            if (numbersRoman.containsKey(substring)) {</b>
+<b class="nc"><i class="no-highlight">235</i>&nbsp;                result += numbersRoman.getValue(substring)</b>
+<b class="nc"><i class="no-highlight">236</i>&nbsp;                i += 2</b>
+<i class="no-highlight">237</i>&nbsp;            } else {
+<b class="nc"><i class="no-highlight">238</i>&nbsp;                result += numbersRoman.getValue(roman[i].toString())</b>
+<b class="nc"><i class="no-highlight">239</i>&nbsp;                i++</b>
+<i class="no-highlight">240</i>&nbsp;            }
+<i class="no-highlight">241</i>&nbsp;        }
+<i class="no-highlight">242</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">243</i>&nbsp;    return result</b>
+<i class="no-highlight">244</i>&nbsp;}
+<i class="no-highlight">245</i>&nbsp;
+<i class="no-highlight">246</i>&nbsp;/**
+<i class="no-highlight">247</i>&nbsp; * Очень сложная (7 баллов)
+<i class="no-highlight">248</i>&nbsp; *
+<i class="no-highlight">249</i>&nbsp; * Имеется специальное устройство, представляющее собой
+<i class="no-highlight">250</i>&nbsp; * конвейер из cells ячеек (нумеруются от 0 до cells - 1 слева направо) и датчик, двигающийся над этим конвейером.
+<i class="no-highlight">251</i>&nbsp; * Строка commands содержит последовательность команд, выполняемых данным устройством, например +&gt;+&gt;+&gt;+&gt;+
+<i class="no-highlight">252</i>&nbsp; * Каждая команда кодируется одним специальным символом:
+<i class="no-highlight">253</i>&nbsp; *	&gt; - сдвиг датчика вправо на 1 ячейку;
+<i class="no-highlight">254</i>&nbsp; *  &lt; - сдвиг датчика влево на 1 ячейку;
+<i class="no-highlight">255</i>&nbsp; *	+ - увеличение значения в ячейке под датчиком на 1 ед.;
+<i class="no-highlight">256</i>&nbsp; *	- - уменьшение значения в ячейке под датчиком на 1 ед.;
+<i class="no-highlight">257</i>&nbsp; *	[ - если значение под датчиком равно 0, в качестве следующей команды следует воспринимать
+<i class="no-highlight">258</i>&nbsp; *  	не следующую по порядку, а идущую за соответствующей следующей командой &#39;]&#39; (с учётом вложенности);
+<i class="no-highlight">259</i>&nbsp; *	] - если значение под датчиком не равно 0, в качестве следующей команды следует воспринимать
+<i class="no-highlight">260</i>&nbsp; *  	не следующую по порядку, а идущую за соответствующей предыдущей командой &#39;[&#39; (с учётом вложенности);
+<i class="no-highlight">261</i>&nbsp; *      (комбинация [] имитирует цикл)
+<i class="no-highlight">262</i>&nbsp; *  пробел - пустая команда
+<i class="no-highlight">263</i>&nbsp; *
+<i class="no-highlight">264</i>&nbsp; * Изначально все ячейки заполнены значением 0 и датчик стоит на ячейке с номером N/2 (округлять вниз)
+<i class="no-highlight">265</i>&nbsp; *
+<i class="no-highlight">266</i>&nbsp; * После выполнения limit команд или всех команд из commands следует прекратить выполнение последовательности команд.
+<i class="no-highlight">267</i>&nbsp; * Учитываются все команды, в том числе несостоявшиеся переходы (&quot;[&quot; при значении под датчиком не равном 0 и &quot;]&quot; при
+<i class="no-highlight">268</i>&nbsp; * значении под датчиком равном 0) и пробелы.
+<i class="no-highlight">269</i>&nbsp; *
+<i class="no-highlight">270</i>&nbsp; * Вернуть список размера cells, содержащий элементы ячеек устройства после завершения выполнения последовательности.
+<i class="no-highlight">271</i>&nbsp; * Например, для 10 ячеек и командной строки +&gt;+&gt;+&gt;+&gt;+ результат должен быть 0,0,0,0,0,1,1,1,1,1
+<i class="no-highlight">272</i>&nbsp; *
+<i class="no-highlight">273</i>&nbsp; * Все прочие символы следует считать ошибочными и формировать исключение IllegalArgumentException.
+<i class="no-highlight">274</i>&nbsp; * То же исключение формируется, если у символов [ ] не оказывается пары.
+<i class="no-highlight">275</i>&nbsp; * Выход за границу конвейера также следует считать ошибкой и формировать исключение IllegalStateException.
+<i class="no-highlight">276</i>&nbsp; * Считать, что ошибочные символы и непарные скобки являются более приоритетной ошибкой чем выход за границу ленты,
+<i class="no-highlight">277</i>&nbsp; * то есть если в программе присутствует некорректный символ или непарная скобка, то должно быть выброшено
+<i class="no-highlight">278</i>&nbsp; * IllegalArgumentException.
+<i class="no-highlight">279</i>&nbsp; * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
+<i class="no-highlight">280</i>&nbsp; *
+<i class="no-highlight">281</i>&nbsp; */
+<i class="no-highlight">282</i>&nbsp;fun computeDeviceCells(cells: Int, commands: String, limit: Int): List&lt;Int&gt; {
+<i class="no-highlight">283</i>&nbsp;    fun checkIllegalArgumentException(countCells: Int, str: String) {
+<b class="nc"><i class="no-highlight">284</i>&nbsp;        var firstBracket = &quot;&quot;</b>
+<b class="nc"><i class="no-highlight">285</i>&nbsp;        var lastBracket = &quot;&quot;</b>
+<b class="nc"><i class="no-highlight">286</i>&nbsp;        var countLeftBrackets = 0</b>
+<b class="nc"><i class="no-highlight">287</i>&nbsp;        var countRightBrackets = 0</b>
+<b class="nc"><i class="no-highlight">288</i>&nbsp;        var countBordersSteps = countCells / 2</b>
+<b class="nc"><i class="no-highlight">289</i>&nbsp;        for (element in str) {</b>
+<b class="nc"><i class="no-highlight">290</i>&nbsp;            if (element in &quot;[]&quot; &amp;&amp; firstBracket == &quot;&quot;) firstBracket = element.toString()</b>
+<b class="nc"><i class="no-highlight">291</i>&nbsp;            val sign = element.toString()</b>
+<b class="nc"><i class="no-highlight">292</i>&nbsp;            when (sign) {</b>
+<b class="nc"><i class="no-highlight">293</i>&nbsp;                !in &quot;+-&gt;&lt;[] &quot; -&gt; throw IllegalArgumentException()</b>
+<b class="nc"><i class="no-highlight">294</i>&nbsp;                &quot;[&quot; -&gt; {</b>
+<b class="nc"><i class="no-highlight">295</i>&nbsp;                    countLeftBrackets++</b>
+<b class="nc"><i class="no-highlight">296</i>&nbsp;                    lastBracket = &quot;[&quot;</b>
+<i class="no-highlight">297</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">298</i>&nbsp;                &quot;]&quot; -&gt; {</b>
+<b class="nc"><i class="no-highlight">299</i>&nbsp;                    countRightBrackets++</b>
+<b class="nc"><i class="no-highlight">300</i>&nbsp;                    lastBracket = &quot;]&quot;</b>
+<i class="no-highlight">301</i>&nbsp;                }
+<b class="nc"><i class="no-highlight">302</i>&nbsp;                &quot;&gt;&quot; -&gt; countBordersSteps++</b>
+<b class="nc"><i class="no-highlight">303</i>&nbsp;                &quot;&lt;&quot; -&gt; countBordersSteps--</b>
+<i class="no-highlight">304</i>&nbsp;            }
+<i class="no-highlight">305</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">306</i>&nbsp;        if (firstBracket == &quot;]&quot; || lastBracket == &quot;[&quot; || (countLeftBrackets != countRightBrackets)) throw IllegalArgumentException()</b>
+<i class="no-highlight">307</i>&nbsp;    }
+<i class="no-highlight">308</i>&nbsp;
+<i class="no-highlight">309</i>&nbsp;    fun checkIllegalStateException(totalCells: Int, currentsCell: Int, typeArrow: String) {
+<b class="nc"><i class="no-highlight">310</i>&nbsp;        if (typeArrow == &quot;left&quot; &amp;&amp; currentsCell - 1 &lt; 0) throw IllegalStateException()</b>
+<b class="nc"><i class="no-highlight">311</i>&nbsp;        if (typeArrow == &quot;right&quot; &amp;&amp; currentsCell + 1 &gt;= totalCells) throw IllegalStateException()</b>
+<i class="no-highlight">312</i>&nbsp;    }
+<i class="no-highlight">313</i>&nbsp;
+<i class="no-highlight">314</i>&nbsp;    fun editLeftBracket(index: Int, commands: String): Int {
+<b class="nc"><i class="no-highlight">315</i>&nbsp;        var nesting = 0</b>
+<b class="nc"><i class="no-highlight">316</i>&nbsp;        var returnedIndex = 0</b>
+<b class="nc"><i class="no-highlight">317</i>&nbsp;        for (i in index + 1 until commands.length) {</b>
+<b class="nc"><i class="no-highlight">318</i>&nbsp;            if (commands[i].toString() == &quot;[&quot;) nesting--</b>
+<b class="nc"><i class="no-highlight">319</i>&nbsp;            if (commands[i].toString() == &quot;]&quot; &amp;&amp; nesting == 0) {</b>
+<b class="nc"><i class="no-highlight">320</i>&nbsp;                returnedIndex = i</b>
+<b class="nc"><i class="no-highlight">321</i>&nbsp;                break</b>
+<i class="no-highlight">322</i>&nbsp;            }
+<b class="nc"><i class="no-highlight">323</i>&nbsp;            if (commands[i].toString() == &quot;]&quot;) nesting++</b>
+<i class="no-highlight">324</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">325</i>&nbsp;        return returnedIndex</b>
+<i class="no-highlight">326</i>&nbsp;    }
+<i class="no-highlight">327</i>&nbsp;
+<i class="no-highlight">328</i>&nbsp;    fun editRightBracket(index: Int, commands: String): Int {
+<b class="nc"><i class="no-highlight">329</i>&nbsp;        var currentIndex = index</b>
+<b class="nc"><i class="no-highlight">330</i>&nbsp;        var nesting = 0</b>
+<b class="nc"><i class="no-highlight">331</i>&nbsp;        var returnedIndex = 0</b>
+<b class="nc"><i class="no-highlight">332</i>&nbsp;        while (true) {</b>
+<b class="nc"><i class="no-highlight">333</i>&nbsp;            currentIndex--</b>
+<b class="nc"><i class="no-highlight">334</i>&nbsp;            if (commands[currentIndex].toString() == &quot;]&quot;) nesting--</b>
+<b class="nc"><i class="no-highlight">335</i>&nbsp;            else if (commands[currentIndex].toString() == &quot;[&quot; &amp;&amp; nesting == 0) {</b>
+<b class="nc"><i class="no-highlight">336</i>&nbsp;                returnedIndex = currentIndex</b>
+<b class="nc"><i class="no-highlight">337</i>&nbsp;                break</b>
+<b class="nc"><i class="no-highlight">338</i>&nbsp;            } else if (commands[currentIndex].toString() == &quot;[&quot;) nesting++</b>
+<i class="no-highlight">339</i>&nbsp;        }
+<b class="nc"><i class="no-highlight">340</i>&nbsp;        return returnedIndex</b>
+<i class="no-highlight">341</i>&nbsp;    }
+<i class="no-highlight">342</i>&nbsp;
+<b class="nc"><i class="no-highlight">343</i>&nbsp;    checkIllegalArgumentException(cells, commands)</b>
+<b class="nc"><i class="no-highlight">344</i>&nbsp;    val cellArray = IntArray(cells) { 0 }</b>
+<b class="nc"><i class="no-highlight">345</i>&nbsp;    var currentCell = cells / 2</b>
+<b class="nc"><i class="no-highlight">346</i>&nbsp;    var step = 0</b>
+<b class="nc"><i class="no-highlight">347</i>&nbsp;    var countSteps = 0</b>
+<b class="nc"><i class="no-highlight">348</i>&nbsp;    while (step &lt; commands.length &amp;&amp; countSteps &lt; limit) {</b>
+<b class="nc"><i class="no-highlight">349</i>&nbsp;        val command = commands[step].toString()</b>
+<b class="nc"><i class="no-highlight">350</i>&nbsp;        if (command == &quot;&gt;&quot;) {</b>
+<b class="nc"><i class="no-highlight">351</i>&nbsp;            checkIllegalStateException(cells, currentCell, &quot;right&quot;)</b>
+<b class="nc"><i class="no-highlight">352</i>&nbsp;            currentCell++</b>
+<b class="nc"><i class="no-highlight">353</i>&nbsp;        } else if (command == &quot;&lt;&quot;) {</b>
+<b class="nc"><i class="no-highlight">354</i>&nbsp;            checkIllegalStateException(cells, currentCell, &quot;left&quot;)</b>
+<b class="nc"><i class="no-highlight">355</i>&nbsp;            currentCell--</b>
+<b class="nc"><i class="no-highlight">356</i>&nbsp;        } else if (command == &quot;+&quot;) cellArray[currentCell]++</b>
+<b class="nc"><i class="no-highlight">357</i>&nbsp;        else if (command == &quot;-&quot;) cellArray[currentCell]--</b>
+<b class="nc"><i class="no-highlight">358</i>&nbsp;        else if (command == &quot;[&quot; &amp;&amp; cellArray[currentCell] == 0) step = editLeftBracket(step, commands)</b>
+<b class="nc"><i class="no-highlight">359</i>&nbsp;        else if (command == &quot;]&quot; &amp;&amp; cellArray[currentCell] != 0) step = editRightBracket(step, commands)</b>
+<b class="nc"><i class="no-highlight">360</i>&nbsp;        step++</b>
+<b class="nc"><i class="no-highlight">361</i>&nbsp;        countSteps++</b>
+<i class="no-highlight">362</i>&nbsp;    }
+<b class="nc"><i class="no-highlight">363</i>&nbsp;    return cellArray.toList()</b>
+<i class="no-highlight">364</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-03-26 22:16</div>
+</div>
+</body>
+</html>

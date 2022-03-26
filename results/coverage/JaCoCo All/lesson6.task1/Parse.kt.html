@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Parse.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo CoverageAll Coverage Results</a> &gt; <a href="index.source.html" class="el_package">lesson6.task1</a> &gt; <span class="el_source">Parse.kt</span></div><h1>Parse.kt</h1><pre class="source lang-java linenums">@file:Suppress(&quot;UNUSED_PARAMETER&quot;, &quot;ConvertCallChainIntoSequence&quot;)
+
+package lesson6.task1
+
+import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
+
+// Урок 6: разбор строк, исключения
+// Максимальное количество баллов = 13
+// Рекомендуемое количество баллов = 11
+// Вместе с предыдущими уроками (пять лучших, 2-6) = 40/54
+
+/**
+ * Пример
+ *
+ * Время представлено строкой вида &quot;11:34:45&quot;, содержащей часы, минуты и секунды, разделённые двоеточием.
+ * Разобрать эту строку и рассчитать количество секунд, прошедшее с начала дня.
+ */
+fun timeStrToSeconds(str: String): Int {
+<span class="nc" id="L20">    val parts = str.split(&quot;:&quot;)</span>
+<span class="nc" id="L21">    var result = 0</span>
+<span class="nc bnc" id="L22" title="All 2 branches missed.">    for (part in parts) {</span>
+<span class="nc" id="L23">        val number = part.toInt()</span>
+<span class="nc" id="L24">        result = result * 60 + number</span>
+    }
+<span class="nc" id="L26">    return result</span>
+}
+
+/**
+ * Пример
+ *
+ * Дано число n от 0 до 99.
+ * Вернуть его же в виде двухсимвольной строки, от &quot;00&quot; до &quot;99&quot;
+ */
+<span class="nc bnc" id="L35" title="All 6 branches missed.">fun twoDigitStr(n: Int) = if (n in 0..9) &quot;0$n&quot; else &quot;$n&quot;</span>
+
+/**
+ * Пример
+ *
+ * Дано seconds -- время в секундах, прошедшее с начала дня.
+ * Вернуть текущее время в виде строки в формате &quot;ЧЧ:ММ:СС&quot;.
+ */
+fun timeSecondsToStr(seconds: Int): String {
+<span class="nc" id="L44">    val hour = seconds / 3600</span>
+<span class="nc" id="L45">    val minute = (seconds % 3600) / 60</span>
+<span class="nc" id="L46">    val second = seconds % 60</span>
+<span class="nc" id="L47">    return String.format(&quot;%02d:%02d:%02d&quot;, hour, minute, second)</span>
+}
+
+/**
+ * Пример: консольный ввод
+ */
+fun main() {
+<span class="nc" id="L54">    println(&quot;Введите время в формате ЧЧ:ММ:СС&quot;)</span>
+<span class="nc" id="L55">    val line = readLine()</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">    if (line != null) {</span>
+<span class="nc" id="L57">        val seconds = timeStrToSeconds(line)</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (seconds == -1) {</span>
+<span class="nc" id="L59">            println(&quot;Введённая строка $line не соответствует формату ЧЧ:ММ:СС&quot;)</span>
+        } else {
+<span class="nc" id="L61">            println(&quot;Прошло секунд с начала суток: $seconds&quot;)</span>
+        }
+    } else {
+<span class="nc" id="L64">        println(&quot;Достигнут &lt;конец файла&gt; в процессе чтения строки. Программа прервана&quot;)</span>
+    }
+<span class="nc" id="L66">}</span>
+
+
+/**
+ * Средняя (4 балла)
+ *
+ * Дата представлена строкой вида &quot;15 июля 2016&quot;.
+ * Перевести её в цифровой формат &quot;15.07.2016&quot;.
+ * День и месяц всегда представлять двумя цифрами, например: 03.04.2011.
+ * При неверном формате входной строки вернуть пустую строку.
+ *
+ * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
+ * входными данными.
+ */
+<span class="nc" id="L80">fun dateStrToDigit(str: String): String = TODO()</span>
+
+/**
+ * Средняя (4 балла)
+ *
+ * Дата представлена строкой вида &quot;15.07.2016&quot;.
+ * Перевести её в строковый формат вида &quot;15 июля 2016&quot;.
+ * При неверном формате входной строки вернуть пустую строку
+ *
+ * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
+ * входными данными.
+ */
+<span class="nc" id="L92">fun dateDigitToStr(digital: String): String = TODO()</span>
+
+/**
+ * Средняя (4 балла)
+ *
+ * Номер телефона задан строкой вида &quot;+7 (921) 123-45-67&quot;.
+ * Префикс (+7) может отсутствовать, код города (в скобках) также может отсутствовать.
+ * Может присутствовать неограниченное количество пробелов и чёрточек,
+ * например, номер 12 --  34- 5 -- 67 -89 тоже следует считать легальным.
+ * Перевести номер в формат без скобок, пробелов и чёрточек (но с +), например,
+ * &quot;+79211234567&quot; или &quot;123456789&quot; для приведённых примеров.
+ * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
+ * При неверном формате вернуть пустую строку.
+ *
+ * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
+ */
+<span class="nc" id="L108">fun flattenPhoneNumber(phone: String): String = TODO()</span>
+
+/**
+ * Средняя (5 баллов)
+ *
+ * Результаты спортсмена на соревнованиях в прыжках в длину представлены строкой вида
+ * &quot;706 - % 717 % 703&quot;.
+ * В строке могут присутствовать числа, черточки - и знаки процента %, разделённые пробелами;
+ * число соответствует удачному прыжку, - пропущенной попытке, % заступу.
+ * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
+ * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
+ */
+<span class="nc" id="L120">fun bestLongJump(jumps: String): Int = TODO()</span>
+
+/**
+ * Сложная (6 баллов)
+ *
+ * Результаты спортсмена на соревнованиях в прыжках в высоту представлены строкой вида
+ * &quot;220 + 224 %+ 228 %- 230 + 232 %%- 234 %&quot;.
+ * Здесь + соответствует удачной попытке, % неудачной, - пропущенной.
+ * Высота и соответствующие ей попытки разделяются пробелом.
+ * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
+ * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
+ * вернуть -1.
+ */
+<span class="nc" id="L133">fun bestHighJump(jumps: String): Int = TODO()</span>
+
+/**
+ * Сложная (6 баллов)
+ *
+ * В строке представлено выражение вида &quot;2 + 31 - 40 + 13&quot;,
+ * использующее целые положительные числа, плюсы и минусы, разделённые пробелами.
+ * Наличие двух знаков подряд &quot;13 + + 10&quot; или двух чисел подряд &quot;1 2&quot; не допускается.
+ * Вернуть значение выражения (6 для примера).
+ * Про нарушении формата входной строки бросить исключение IllegalArgumentException
+ */
+<span class="nc" id="L144">fun plusMinus(expression: String): Int = TODO()</span>
+
+/**
+ * Сложная (6 баллов)
+ *
+ * Строка состоит из набора слов, отделённых друг от друга одним пробелом.
+ * Определить, имеются ли в строке повторяющиеся слова, идущие друг за другом.
+ * Слова, отличающиеся только регистром, считать совпадающими.
+ * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
+ * Пример: &quot;Он пошёл в в школу&quot; =&gt; результат 9 (индекс первого 'в')
+ */
+fun firstDuplicateIndex(str: String): Int {
+<span class="fc" id="L156">    var countIndexes = 0</span>
+<span class="fc" id="L157">    val listWords = str.split(&quot; &quot;)</span>
+<span class="fc bfc" id="L158" title="All 4 branches covered.">    for (i in 0..listWords.size - 2) {</span>
+<span class="fc" id="L159">        countIndexes += listWords[i].length</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">        if (listWords[i].equals(listWords[i + 1], ignoreCase = true)) {</span>
+<span class="fc" id="L161">            return countIndexes + i - listWords[i].length</span>
+        }
+    }
+<span class="fc" id="L164">    return -1</span>
+}
+
+/**
+ * Сложная (6 баллов)
+ *
+ * Строка содержит названия товаров и цены на них в формате вида
+ * &quot;Хлеб 39.9; Молоко 62; Курица 184.0; Конфеты 89.9&quot;.
+ * То есть, название товара отделено от цены пробелом,
+ * а цена отделена от названия следующего товара точкой с запятой и пробелом.
+ * Вернуть название самого дорогого товара в списке (в примере это Курица),
+ * или пустую строку при нарушении формата строки.
+ * Все цены должны быть больше нуля либо равны нулю.
+ */
+
+fun mostExpensive(description: String): String {
+<span class="fc bfc" id="L180" title="All 4 branches covered.">    if (description.isEmpty()) return &quot;&quot;</span>
+<span class="fc" id="L181">    var maxPrice = 0.0</span>
+<span class="fc" id="L182">    val products = mutableMapOf&lt;Double, String&gt;()</span>
+<span class="fc" id="L183">    val items = description.split(&quot;;&quot;).toMutableList()</span>
+<span class="fc bfc" id="L184" title="All 2 branches covered.">    for (i in items.indices) {</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        if (items[i][0].toString() == &quot; &quot;) items[i] = items[i].substring(1)</span>
+<span class="fc" id="L186">        val listPriceItem = items[i].split(&quot; &quot;)</span>
+<span class="fc bfc" id="L187" title="All 2 branches covered.">        if (listPriceItem.size != 2) return &quot;&quot;</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        if (listPriceItem[1].toDouble() &lt; 0) return &quot;&quot;</span>
+<span class="fc" id="L189">        products[listPriceItem[1].toDouble()] = listPriceItem[0]</span>
+<span class="fc bfc" id="L190" title="All 2 branches covered.">        if (listPriceItem[1].toDouble() &gt; maxPrice) maxPrice = listPriceItem[1].toDouble()</span>
+    }
+<span class="fc" id="L192">    return products[maxPrice].toString()</span>
+}
+
+/**
+ * Сложная (6 баллов)
+ *
+ * Перевести число roman, заданное в римской системе счисления,
+ * в десятичную систему и вернуть как результат.
+ * Римские цифры: 1 = I, 4 = IV, 5 = V, 9 = IX, 10 = X, 40 = XL, 50 = L,
+ * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
+ * Например: XXIII = 23, XLIV = 44, C = 100
+ *
+ * Вернуть -1, если roman не является корректным римским числом
+ */
+<span class="pc" id="L206">var numbersRoman = mapOf(</span>
+<span class="fc" id="L207">    &quot;M&quot; to 1000, &quot;CM&quot; to 900, &quot;D&quot; to 500, &quot;CD&quot; to 400, &quot;C&quot; to 100, &quot;XC&quot; to 90,</span>
+<span class="fc" id="L208">    &quot;L&quot; to 50, &quot;XL&quot; to 40, &quot;X&quot; to 10, &quot;IX&quot; to 9, &quot;V&quot; to 5, &quot;IV&quot; to 4, &quot;I&quot; to 1</span>
+<span class="nc" id="L209">)</span>
+
+fun fromRoman(roman: String): Int {
+<span class="nc" id="L212">    var result = 0</span>
+<span class="nc" id="L213">    var maxNumber = 5000</span>
+<span class="nc bnc" id="L214" title="All 4 branches missed.">    if (roman.isEmpty()) return -1</span>
+<span class="nc" id="L215">    var i = 0</span>
+<span class="nc bnc" id="L216" title="All 2 branches missed.">    while (i &lt; roman.length) {</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (roman[i] !in &quot;MCDXLIV&quot;) return -1</span>
+
+<span class="nc" id="L219">        var substring = roman[i].toString()</span>
+<span class="nc bnc" id="L220" title="All 2 branches missed.">        if (roman.length - i &gt; 1) substring = substring.plus(roman[i + 1])</span>
+<span class="nc bnc" id="L221" title="All 2 branches missed.">        maxNumber = if (numbersRoman.containsKey(substring)) {</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">            if (numbersRoman.getValue(substring) &lt;= maxNumber) {</span>
+<span class="nc" id="L223">                numbersRoman.getValue(substring)</span>
+<span class="nc" id="L224">            } else return -1</span>
+<span class="nc bnc" id="L225" title="All 2 branches missed.">        } else if (numbersRoman.getValue(roman[i].toString()) &lt;= maxNumber) {</span>
+<span class="nc" id="L226">            numbersRoman.getValue(roman[i].toString())</span>
+<span class="nc" id="L227">        } else return -1</span>
+
+<span class="nc bnc" id="L229" title="All 2 branches missed.">        if (i == roman.length - 1) {</span>
+<span class="nc" id="L230">            result += numbersRoman.getValue(roman[i].toString())</span>
+<span class="nc" id="L231">            i++</span>
+        } else {
+<span class="nc" id="L233">            val substring = roman[i].plus(roman[i + 1].toString())</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">            if (numbersRoman.containsKey(substring)) {</span>
+<span class="nc" id="L235">                result += numbersRoman.getValue(substring)</span>
+<span class="nc" id="L236">                i += 2</span>
+            } else {
+<span class="nc" id="L238">                result += numbersRoman.getValue(roman[i].toString())</span>
+<span class="nc" id="L239">                i++</span>
+            }
+        }
+    }
+<span class="nc" id="L243">    return result</span>
+}
+
+/**
+ * Очень сложная (7 баллов)
+ *
+ * Имеется специальное устройство, представляющее собой
+ * конвейер из cells ячеек (нумеруются от 0 до cells - 1 слева направо) и датчик, двигающийся над этим конвейером.
+ * Строка commands содержит последовательность команд, выполняемых данным устройством, например +&gt;+&gt;+&gt;+&gt;+
+ * Каждая команда кодируется одним специальным символом:
+ *	&gt; - сдвиг датчика вправо на 1 ячейку;
+ *  &lt; - сдвиг датчика влево на 1 ячейку;
+ *	+ - увеличение значения в ячейке под датчиком на 1 ед.;
+ *	- - уменьшение значения в ячейке под датчиком на 1 ед.;
+ *	[ - если значение под датчиком равно 0, в качестве следующей команды следует воспринимать
+ *  	не следующую по порядку, а идущую за соответствующей следующей командой ']' (с учётом вложенности);
+ *	] - если значение под датчиком не равно 0, в качестве следующей команды следует воспринимать
+ *  	не следующую по порядку, а идущую за соответствующей предыдущей командой '[' (с учётом вложенности);
+ *      (комбинация [] имитирует цикл)
+ *  пробел - пустая команда
+ *
+ * Изначально все ячейки заполнены значением 0 и датчик стоит на ячейке с номером N/2 (округлять вниз)
+ *
+ * После выполнения limit команд или всех команд из commands следует прекратить выполнение последовательности команд.
+ * Учитываются все команды, в том числе несостоявшиеся переходы (&quot;[&quot; при значении под датчиком не равном 0 и &quot;]&quot; при
+ * значении под датчиком равном 0) и пробелы.
+ *
+ * Вернуть список размера cells, содержащий элементы ячеек устройства после завершения выполнения последовательности.
+ * Например, для 10 ячеек и командной строки +&gt;+&gt;+&gt;+&gt;+ результат должен быть 0,0,0,0,0,1,1,1,1,1
+ *
+ * Все прочие символы следует считать ошибочными и формировать исключение IllegalArgumentException.
+ * То же исключение формируется, если у символов [ ] не оказывается пары.
+ * Выход за границу конвейера также следует считать ошибкой и формировать исключение IllegalStateException.
+ * Считать, что ошибочные символы и непарные скобки являются более приоритетной ошибкой чем выход за границу ленты,
+ * то есть если в программе присутствует некорректный символ или непарная скобка, то должно быть выброшено
+ * IllegalArgumentException.
+ * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
+ *
+ */
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List&lt;Int&gt; {
+    fun checkIllegalArgumentException(countCells: Int, str: String) {
+<span class="nc" id="L284">        var firstBracket = &quot;&quot;</span>
+<span class="nc" id="L285">        var lastBracket = &quot;&quot;</span>
+<span class="nc" id="L286">        var countLeftBrackets = 0</span>
+<span class="nc" id="L287">        var countRightBrackets = 0</span>
+<span class="nc" id="L288">        var countBordersSteps = countCells / 2</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">        for (element in str) {</span>
+<span class="nc bnc" id="L290" title="All 4 branches missed.">            if (element in &quot;[]&quot; &amp;&amp; firstBracket == &quot;&quot;) firstBracket = element.toString()</span>
+<span class="nc" id="L291">            val sign = element.toString()</span>
+<span class="nc" id="L292">            when (sign) {</span>
+<span class="nc bnc" id="L293" title="All 2 branches missed.">                !in &quot;+-&gt;&lt;[] &quot; -&gt; throw IllegalArgumentException()</span>
+<span class="nc bnc" id="L294" title="All 2 branches missed.">                &quot;[&quot; -&gt; {</span>
+<span class="nc" id="L295">                    countLeftBrackets++</span>
+<span class="nc" id="L296">                    lastBracket = &quot;[&quot;</span>
+                }
+<span class="nc bnc" id="L298" title="All 2 branches missed.">                &quot;]&quot; -&gt; {</span>
+<span class="nc" id="L299">                    countRightBrackets++</span>
+<span class="nc" id="L300">                    lastBracket = &quot;]&quot;</span>
+                }
+<span class="nc bnc" id="L302" title="All 2 branches missed.">                &quot;&gt;&quot; -&gt; countBordersSteps++</span>
+<span class="nc bnc" id="L303" title="All 2 branches missed.">                &quot;&lt;&quot; -&gt; countBordersSteps--</span>
+            }
+        }
+<span class="nc bnc" id="L306" title="All 6 branches missed.">        if (firstBracket == &quot;]&quot; || lastBracket == &quot;[&quot; || (countLeftBrackets != countRightBrackets)) throw IllegalArgumentException()</span>
+<span class="nc" id="L307">    }</span>
+
+    fun checkIllegalStateException(totalCells: Int, currentsCell: Int, typeArrow: String) {
+<span class="nc bnc" id="L310" title="All 4 branches missed.">        if (typeArrow == &quot;left&quot; &amp;&amp; currentsCell - 1 &lt; 0) throw IllegalStateException()</span>
+<span class="nc bnc" id="L311" title="All 4 branches missed.">        if (typeArrow == &quot;right&quot; &amp;&amp; currentsCell + 1 &gt;= totalCells) throw IllegalStateException()</span>
+<span class="nc" id="L312">    }</span>
+
+    fun editLeftBracket(index: Int, commands: String): Int {
+<span class="nc" id="L315">        var nesting = 0</span>
+<span class="nc" id="L316">        var returnedIndex = 0</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">        for (i in index + 1 until commands.length) {</span>
+<span class="nc bnc" id="L318" title="All 2 branches missed.">            if (commands[i].toString() == &quot;[&quot;) nesting--</span>
+<span class="nc bnc" id="L319" title="All 4 branches missed.">            if (commands[i].toString() == &quot;]&quot; &amp;&amp; nesting == 0) {</span>
+<span class="nc" id="L320">                returnedIndex = i</span>
+<span class="nc" id="L321">                break</span>
+            }
+<span class="nc bnc" id="L323" title="All 2 branches missed.">            if (commands[i].toString() == &quot;]&quot;) nesting++</span>
+        }
+<span class="nc" id="L325">        return returnedIndex</span>
+    }
+
+    fun editRightBracket(index: Int, commands: String): Int {
+<span class="nc" id="L329">        var currentIndex = index</span>
+<span class="nc" id="L330">        var nesting = 0</span>
+<span class="nc" id="L331">        var returnedIndex = 0</span>
+<span class="nc" id="L332">        while (true) {</span>
+<span class="nc" id="L333">            currentIndex--</span>
+<span class="nc bnc" id="L334" title="All 2 branches missed.">            if (commands[currentIndex].toString() == &quot;]&quot;) nesting--</span>
+<span class="nc bnc" id="L335" title="All 4 branches missed.">            else if (commands[currentIndex].toString() == &quot;[&quot; &amp;&amp; nesting == 0) {</span>
+<span class="nc" id="L336">                returnedIndex = currentIndex</span>
+<span class="nc" id="L337">                break</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">            } else if (commands[currentIndex].toString() == &quot;[&quot;) nesting++</span>
+        }
+<span class="nc" id="L340">        return returnedIndex</span>
+    }
+
+<span class="nc" id="L343">    checkIllegalArgumentException(cells, commands)</span>
+<span class="nc bnc" id="L344" title="All 2 branches missed.">    val cellArray = IntArray(cells) { 0 }</span>
+<span class="nc" id="L345">    var currentCell = cells / 2</span>
+<span class="nc" id="L346">    var step = 0</span>
+<span class="nc" id="L347">    var countSteps = 0</span>
+<span class="nc bnc" id="L348" title="All 4 branches missed.">    while (step &lt; commands.length &amp;&amp; countSteps &lt; limit) {</span>
+<span class="nc" id="L349">        val command = commands[step].toString()</span>
+<span class="nc bnc" id="L350" title="All 2 branches missed.">        if (command == &quot;&gt;&quot;) {</span>
+<span class="nc" id="L351">            checkIllegalStateException(cells, currentCell, &quot;right&quot;)</span>
+<span class="nc" id="L352">            currentCell++</span>
+<span class="nc bnc" id="L353" title="All 2 branches missed.">        } else if (command == &quot;&lt;&quot;) {</span>
+<span class="nc" id="L354">            checkIllegalStateException(cells, currentCell, &quot;left&quot;)</span>
+<span class="nc" id="L355">            currentCell--</span>
+<span class="nc bnc" id="L356" title="All 2 branches missed.">        } else if (command == &quot;+&quot;) cellArray[currentCell]++</span>
+<span class="nc bnc" id="L357" title="All 2 branches missed.">        else if (command == &quot;-&quot;) cellArray[currentCell]--</span>
+<span class="nc bnc" id="L358" title="All 4 branches missed.">        else if (command == &quot;[&quot; &amp;&amp; cellArray[currentCell] == 0) step = editLeftBracket(step, commands)</span>
+<span class="nc bnc" id="L359" title="All 4 branches missed.">        else if (command == &quot;]&quot; &amp;&amp; cellArray[currentCell] != 0) step = editRightBracket(step, commands)</span>
+<span class="nc" id="L360">        step++</span>
+<span class="nc" id="L361">        countSteps++</span>
+    }
+<span class="nc" id="L363">    return cellArray.toList()</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

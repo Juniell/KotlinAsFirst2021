@@ -1,8 +1,10 @@
 package lesson5.task1
 
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 
+@Tag("Coverage")
 class Testing {
     /**
      * Для заданного списка неотрицательных чисел и числа определить,
