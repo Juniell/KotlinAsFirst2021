@@ -1,11 +1,8 @@
 package lesson5.task1
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.*
 
-@Tag("CoverageAll")
+@Tags(Tag("CoverageAll"), Tag("CoverageAllWithFuzzing"))
 class TestingAll {
     /**
      * Для заданного списка неотрицательных чисел и числа определить,

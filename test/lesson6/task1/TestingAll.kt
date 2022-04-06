@@ -1,11 +1,8 @@
 package lesson6.task1
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.*
 
-@Tag("CoverageAll")
+@Tags(Tag("CoverageAll"), Tag("CoverageAllWithFuzzing"))
 class TestingAll {
     /**
      * Строка состоит из набора слов, отделённых друг от друга одним пробелом.

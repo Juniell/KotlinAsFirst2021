@@ -1,13 +1,10 @@
 package lesson7.task1
 
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Tag
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertAll
 import java.io.File
 
-@Tag("CoverageAll")
+@Tags(Tag("CoverageAll"), Tag("CoverageAllWithFuzzing"))
 class TestingAll {
     private val filesNames = mutableListOf<String>()
     private var count = 0
